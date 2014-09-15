@@ -120,6 +120,12 @@ namespace WindowsFormsApplication1
             e.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
 
             //g.DrawImage(m_img, new RectangleF(drawPosX, drawPosY, panel1.Width, panel1.Height), (RectangleF)panel1.ClientRectangle, GraphicsUnit.Pixel);
+
+            textBoxToFile.AppendText(string.Format("DEBUG: {0},{1},{2}", m_gh.Game.MapProvider.Map.Rectangle.X,m_gh.Game.MapProvider.Map.Rectangle.Y, Environment.NewLine));
+
+            //Rectangle rect = new Rectangle(m_gh.Game.MapProvider.Map.Rectangle.X > 0 ? 0 : m_gh.Game.MapProvider.Map.Rectangle.X,
+            //    m_gh.Game.MapProvider.Map.Rectangle.Y > 0 ? 0 : m_gh.Game.MapProvider.Map.Rectangle.Y,
+            //    m_gh.Game.MapProvider.Map.Rectangle.Width, m_gh.Game.MapProvider.Map.Rectangle.Height);
             e.Graphics.DrawImage(m_gh.Game.MapProvider.Map.Image, m_gh.Game.MapProvider.Map.Rectangle);
 
             Location regionOrCity = m_gh.Game.GetQuestion().Answer.Location;
@@ -129,9 +135,8 @@ namespace WindowsFormsApplication1
             {
                 if (m_paintRegion.Count > 1)
                 {
-                    //g.DrawLines(P3, m_paintRegion.ToArray());
 
-                    Point[] tempPolygon = m_gh.CH.RecalibratePolygon(m_paintRegion.GetRange(0,m_paintRegion.Count).ToArray());
+                    Point[] tempPolygon = m_gh.CH.RecalibratePolygon(m_paintRegion.ToArray());
 
                     e.Graphics.DrawLines(P2, tempPolygon);
 
@@ -271,8 +276,8 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
+                        textBoxToFile.AppendText(string.Format("offset right {0},{1}{2}", vXFactor * drawFactor, 0, Environment.NewLine));
                         m_gh.Game.MapProvider.Map.Offset(vXFactor * drawFactor, 0);
-                        drawPosX = drawPosX + drawFactor;
                     }
                 }
 
@@ -280,13 +285,15 @@ namespace WindowsFormsApplication1
                 {
                     if (m_gh.CH.FarLeft())
                     {
-                        m_gh.Game.MapProvider.Map.RectX = m_gh.Game.MapProvider.Map.Rectangle.X;
+                        //m_gh.Game.MapProvider.Map.RectX = m_gh.Game.MapProvider.Map.Rectangle.X;
+                        m_gh.Game.MapProvider.Map.RectX = 0;
                         right = false;
                     }
                     else
                     {
+
                         m_gh.Game.MapProvider.Map.Offset(vXFactor * drawFactor, 0);
-                        drawPosX = drawPosX - drawFactor;
+                        textBoxToFile.AppendText(string.Format("offset left {0},{1}{2}", vXFactor * drawFactor, 0, Environment.NewLine));
                     }
                 }
 
@@ -294,13 +301,14 @@ namespace WindowsFormsApplication1
                 {
                     if (m_gh.CH.FarUp())
                     {
-                        m_gh.Game.MapProvider.Map.RectY = m_gh.Game.MapProvider.Map.Rectangle.Y;
+                        //m_gh.Game.MapProvider.Map.RectY = m_gh.Game.MapProvider.Map.Rectangle.Y;
+                        m_gh.Game.MapProvider.Map.RectY = 0;
                         up = false;
                     }
                     else
                     {
+                        textBoxToFile.AppendText(string.Format("offset up {0},{1} vYFactor: {2} drawFactor {3} {4}", 0, vYFactor * drawFactor, vYFactor, drawFactor, Environment.NewLine));
                         m_gh.Game.MapProvider.Map.Offset(0, vYFactor * drawFactor);
-                        drawPosY = drawPosY + drawFactor;
                     }
                 }
 
@@ -313,14 +321,12 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
+                        textBoxToFile.AppendText(string.Format("offset down {0},{1} vYFactor: {2} drawFactor {3} {4}", 0, vYFactor * drawFactor,vYFactor,drawFactor, Environment.NewLine));
                         m_gh.Game.MapProvider.Map.Offset(0, vYFactor * drawFactor);
-                        drawPosY = drawPosY - drawFactor;
                     }
 
                 }
                 Invalidate();
-                //textBox1.Text = "x: " + e.X + "   y: " + e.Y + "  drawposX: " + drawPosX + "   drawposY: " + drawPosY + " viewpoint : " + viewPoint.X + " " + viewPoint.Y + " ::: " + IsWithinBounds();
-                //textBox1.Text = "viewpoint : " + viewPoint.X + " " + viewPoint.Y + " right: " + viewPoint.Right + " bottom: " + viewPoint.Bottom + " mainrect x:" + mainRect.X + " y:" + mainRect.Y + " right: " + mainRect.Right + " bottom: " + mainRect.Bottom + " ::: " + IsWithinBounds();
             }
         }
 

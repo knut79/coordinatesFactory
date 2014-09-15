@@ -276,7 +276,7 @@ namespace WindowsFormsApplication1
         public bool FarUp()
         {
             bool farUp = false;
-            if (m_game.MapProvider.Map.Rectangle.Y > m_viewPort.Rect.Y)
+            if (m_game.MapProvider.Map.Rectangle.Y >= m_viewPort.Rect.Y)
                 farUp = true;
             return farUp;
         }
@@ -284,7 +284,7 @@ namespace WindowsFormsApplication1
         public bool FarDown()
         {
             bool farDown = false;
-            if (m_game.MapProvider.Map.Rectangle.Bottom < m_viewPort.Rect.Bottom)
+            if (m_game.MapProvider.Map.Rectangle.Bottom <= m_viewPort.Rect.Bottom)
                 farDown = true;
             return farDown;
         }
@@ -292,7 +292,7 @@ namespace WindowsFormsApplication1
         public bool FarLeft()
         {
             bool farLeft = false;
-            if (m_game.MapProvider.Map.Rectangle.Right < m_viewPort.Rect.Right)
+            if (m_game.MapProvider.Map.Rectangle.Right <= m_viewPort.Rect.Right)
                 farLeft = true;
             return farLeft;
         }
@@ -300,7 +300,7 @@ namespace WindowsFormsApplication1
         public bool FarRight()
         {
             bool farRight = false;
-            if (m_game.MapProvider.Map.Rectangle.Left > m_viewPort.Rect.Left)
+            if (m_game.MapProvider.Map.Rectangle.Left >= m_viewPort.Rect.Left)
                 farRight = true;
             return farRight;
         }
