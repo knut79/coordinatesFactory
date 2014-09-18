@@ -15,11 +15,12 @@ namespace WindowsFormsApplication1
         static void Main()
         {
             //init game
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
             GameHandler gh = new GameHandler();
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            
             Form1 v_form = new Form1(gh);
             Application.Run(v_form);
         }

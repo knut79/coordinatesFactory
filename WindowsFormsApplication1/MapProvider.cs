@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
@@ -28,21 +29,21 @@ namespace WindowsFormsApplication1
 
         public MapProvider(MapName p_mapName)
         {
-            InitLocations d_InitMapLocations;
-            switch(p_mapName)
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "all files | *.*"; // file types, that will be allowed to upload
+            dialog.Multiselect = false; // allow/deny user to upload more than one file at a time
+            if (dialog.ShowDialog() == DialogResult.OK) // if user clicked OK
             {
-                case(MapName.Norway):
-                    m_map = new Map("Norge", @"C:\Users\knut\Desktop\whatIsThis_TEMP\borders.png");
-                    d_InitMapLocations = InitNorwegianLocations;
-                    break;
-                default:
-                    m_map = new Map("Norge", @"C:\Users\knut\Desktop\whatIsThis_TEMP\norge2.png");
-                    d_InitMapLocations = InitNorwegianLocations;
-                    break;
+                String path = dialog.FileName; // get name of file
 
+                InitLocations d_InitMapLocations;
+                //string directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                m_map = new Map("Norge", path);
+                d_InitMapLocations = InitNorwegianLocations;
+
+                d_InitMapLocations();
             }
-
-            d_InitMapLocations();
+            
             
         }
 
