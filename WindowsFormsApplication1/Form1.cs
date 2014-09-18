@@ -286,7 +286,7 @@ namespace WindowsFormsApplication1
                     if (m_gh.CH.FarLeft())
                     {
                         m_gh.Game.MapProvider.Map.RectX = m_gh.Game.MapProvider.Map.Rectangle.X;
-                        // m_gh.Game.MapProvider.Map.RectX = 0;
+                        //m_gh.Game.MapProvider.Map.RectX = 0;
                         right = false;
                     }
                     else
